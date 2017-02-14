@@ -13,16 +13,16 @@ script:
   tar xzf qemu-arm-static.tar.gz &&
   popd
 # build image
-- docker build -t hypriot/rpi-alpine:build .
+- docker build -t alexadhy/rpi-alpine:build .
 # test image
-- docker run hypriot/rpi-alpine:build uname -a
+- docker run alexadhy/rpi-alpine:build uname -a
 # push image
 - >
-  if [ "$TRAVIS_BRANCH" == "master" ]; then
+  if [ "$TRAVIS_BRANCH" == "3.3" ]; then
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
     TAG=$(grep "FROM " Dockerfile | sed 's/.*://')
-    docker tag hypriot/rpi-alpine:build hypriot/rpi-alpine:$TAG
-    docker tag hypriot/rpi-alpine:build hypriot/rpi-alpine:latest
-    docker push hypriot/rpi-alpine:$TAG
-    docker push hypriot/rpi-alpine:latest
+    docker tag alexadhy/rpi-alpine:build alexadhy/rpi-alpine:$TAG
+    docker tag alexadhy/rpi-alpine:build alexadhy/rpi-alpine:latest
+    docker push alexadhy/rpi-alpine:$TAG
+    docker push alexadhy/rpi-alpine:latest
   fi
