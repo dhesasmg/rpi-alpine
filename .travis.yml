@@ -17,12 +17,7 @@ script:
 # test image
 - docker run alexadhy/rpi-alpine:build uname -a
 # push image
-- >
-  if [ "$TRAVIS_BRANCH" == "3.3" ]; then
-    docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-    TAG=$(grep "FROM " Dockerfile | sed 's/.*://')
-    docker tag alexadhy/rpi-alpine:build alexadhy/rpi-alpine:$TAG
-    docker tag alexadhy/rpi-alpine:build alexadhy/rpi-alpine:latest
-    docker push alexadhy/rpi-alpine:$TAG
-    docker push alexadhy/rpi-alpine:latest
-  fi
+-  TAG=$(grep "FROM " Dockerfile | sed 's/.*://')
+-  docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+-  docker tag alexadhy/rpi-alpine:build alexadhy/rpi-alpine:$TAG
+-  docker push alexadhy/rpi-alpine:$TAG
